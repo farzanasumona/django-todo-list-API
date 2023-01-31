@@ -1,0 +1,61 @@
+from django.http import JsonResponse
+from django.shortcuts import render
+
+# Create your views here.
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+from todo_list_app.models import Task
+from todo_list_app.serializer import TaskSerializer
+
+
+@api_view(['GET'])
+def todo_task(request):
+    task = Task.objects.all()
+    serializer = TaskSerializer(task, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def todo_task_create(request):
+    serializer = TaskSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT', 'DELETE', 'PATCH'])
+def todo(request, pk):
+    try:
+        task = Task.objects.get(pk=pk)
+    except:
+        return Response({'error': 'Task does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = TaskSerializer(task)
+        return Response(serializer.data)
+
+    if request.method == 'PUT':
+        serializer = TaskSerializer(task, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    if request.method == 'DELETE':
+        task.delete()
+        return Response({'delete': True}, status=status.HTTP_204_NO_CONTENT)
+
+    if request.method == 'PATCH':
+        serializer = TaskSerializer(task, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+ 
