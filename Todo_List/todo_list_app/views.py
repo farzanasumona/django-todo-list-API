@@ -1,8 +1,9 @@
+import django_filters
 from django.http import JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import status
+from rest_framework import status, generics, filters
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -10,11 +11,8 @@ from todo_list_app.models import Task
 from todo_list_app.serializer import TaskSerializer
 
 
-@api_view(['GET'])
-def todo_task(request):
-    task = Task.objects.all()
-    serializer = TaskSerializer(task, many=True)
-    return Response(serializer.data)
+
+
 
 
 @api_view(['POST'])
@@ -58,4 +56,21 @@ def todo(request, pk):
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
- 
+
+
+class TodoSearch(generics.ListAPIView):
+    serializer_class = TaskSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = Task.objects.all()
+        title = self.request.query_params.get('title')
+        if title is not None:
+            queryset = queryset.filter(title=title)
+        return queryset
+
+
+
+
+
+
+

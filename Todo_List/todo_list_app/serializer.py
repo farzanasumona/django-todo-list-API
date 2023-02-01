@@ -11,6 +11,7 @@ class TaskSerializer(serializers.Serializer):
     is_done = serializers.BooleanField(default=False)
     created_at = serializers.DateTimeField(read_only=True)
     update_at = serializers.DateTimeField(read_only=True)
+    desc = serializers.CharField()
 
     def create(self, data):
         return Task.objects.create(**data)
@@ -18,6 +19,7 @@ class TaskSerializer(serializers.Serializer):
     def update(self, instance, data):
         instance.title = data.get('title', instance.title)
         instance.is_done = data.get('is_done', instance.is_done)
+        instance.desc = data.get('desc', instance.desc)
         instance.update_at = datetime.now()
 
         instance.save()
