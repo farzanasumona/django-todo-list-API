@@ -11,10 +11,6 @@ from todo_list_app.models import Task
 from todo_list_app.serializer import TaskSerializer
 
 
-
-
-
-
 @api_view(['POST'])
 def todo_task_create(request):
     serializer = TaskSerializer(data=request.data)
