@@ -29,7 +29,49 @@ class ApiViewsTests(APITestCase):
         #then
         self.assertEqual(response.status_code, 200)
 
+
     #def test_update_by_id_todos(self):
+
+
+class DeleteViewTest(APITestCase):
+
+    url = reverse('get_by_id_task', args=[1])
+
+    def test_delete_by_id_todos(self):
+        # given
+        task = Task(title='title', is_done=True, desc='desc')
+        task.save()
+
+
+        # when
+        #response = self.client.delete(self.url)
+
+        response = self.client.delete(reverse('get_by_id_task', kwargs={'pk': task.pk}), follow=True)
+        # then
+        self.assertEqual(response.status_code, 204)
+
+class PutViewTest(APITestCase):
+
+    url = reverse('get_by_id_task', args=[1])
+
+    def test_delete_by_id_todos(self):
+        # given
+        task = Task(title='title', is_done=True, desc='desc')
+        task.save()
+
+        data = {
+
+            "title": "ed",
+            "is_done": True,
+            "desc": "I am working"
+        }
+
+        response = self.client.put(reverse('get_by_id_task', kwargs={'pk': task.pk}), data, format='json')
+        self.assertEqual(response.status_code, 200)
+
+        task.refresh_from_db()
+        self.assertEqual('ed', task.title)
+
 
 
 class CreateViewTest(APITestCase):
