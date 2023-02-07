@@ -10,7 +10,7 @@ class BasicTest(APITestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class GetViewTest(APITestCase):
+class GetViewsTest(APITestCase):
 
     url = reverse('get_by_id_task', args=[1])
 
@@ -26,7 +26,7 @@ class GetViewTest(APITestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class DeleteViewTest(APITestCase):
+class DeleteViewsTest(APITestCase):
 
     url = reverse('get_by_id_task', args=[1])
 
@@ -39,7 +39,7 @@ class DeleteViewTest(APITestCase):
         self.assertEqual(response.status_code, 204)
 
 
-class UpdateViewTest(APITestCase):
+class UpdateViewsTest(APITestCase):
 
     url = reverse('get_by_id_task', args=[1])
 
@@ -78,7 +78,7 @@ class UpdateViewTest(APITestCase):
         self.assertEqual('patch the title', task.title)
 
 
-class CreateViewTest(APITestCase):
+class CreateViewsTest(APITestCase):
 
     create_url = reverse('create-task')
 
