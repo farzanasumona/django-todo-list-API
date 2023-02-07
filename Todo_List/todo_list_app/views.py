@@ -1,18 +1,8 @@
-import django_filters
-from django.http import JsonResponse
-from django.shortcuts import render
-
-# Create your views here.
-from rest_framework import status, generics, filters
+from rest_framework import status, generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
 from todo_list_app.models import Task
 from todo_list_app.serializer import TaskSerializer
-
-
-
-
 
 
 @api_view(['POST'])
