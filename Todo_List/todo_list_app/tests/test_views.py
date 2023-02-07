@@ -39,7 +39,7 @@ class DeleteViewTest(APITestCase):
         self.assertEqual(response.status_code, 204)
 
 
-class PutViewTest(APITestCase):
+class UpdateViewTest(APITestCase):
 
     url = reverse('get_by_id_task', args=[1])
 
