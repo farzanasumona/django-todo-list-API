@@ -82,10 +82,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
         'NAME': 'todo_list',
-        'HOST': '127.0.0.1',
+        'HOST': '172.17.0.3',
         'PORT': 3306,
         'USER': 'root',
-        'PASSWORD': 'abcabc123',
+        'PASSWORD': 'mypassword',
     }
 }
 
