@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'todo_list',
         'USER': 'root',
         'PASSWORD': 'password',
-        'HOST': 'mymysql',  # docker-compose service name 'db' resolves to host name 'db'
+        'HOST': 'db',  # docker-compose service name 'db' resolves to host name 'db'
         'PORT': 3306
     }
 }
