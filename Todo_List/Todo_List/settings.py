@@ -80,12 +80,12 @@ WSGI_APPLICATION = 'Todo_List.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql.connector.django',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'todo_list',
-        'HOST': '172.17.0.3',
-        'PORT': 3306,
         'USER': 'root',
-        'PASSWORD': 'mypassword',
+        'PASSWORD': 'password',
+        'HOST': 'db',  # docker-compose service name 'db' resolves to host name 'db'
+        'PORT': 3306
     }
 }
 
